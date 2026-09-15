@@ -58,15 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
         carousel.parentElement.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
     }
     // 3. Animación de los bloques completos de las propuestas
-    const observerTarjetas = new IntersectionObserver((entries) => {
+    const observerTarjetas = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             // Cuando la tarjeta entra en la pantalla del usuario
             if (entry.isIntersecting) {
                 entry.target.classList.add('show');
+                // Opcional pero recomendado: dejar de observar la tarjeta una vez que ya apareció
+                observer.unobserve(entry.target); 
             }
         });
     }, { 
-        threshold: 0.2 // Se activa cuando al menos el 20% de la tarjeta es visible
+        // ¡NUEVO MARGEN DE SEGURIDAD! 
+        // El -100px hace que la animación espere hasta que el usuario 
+        // baje la pantalla 100 píxeles más adentro de la sección.
+        rootMargin: '0px 0px -100px 0px', 
+        threshold: 0.15 
     });
 
     // Seleccionamos todas las tarjetas y las ponemos bajo observación

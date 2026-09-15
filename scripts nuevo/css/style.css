@@ -76,6 +76,7 @@ nav a:hover, nav a.active {
     padding: 0 5%; /* Evita que choque con los bordes en móviles */
     margin-top: 50px; 
     margin-bottom: 50px; 
+    min-height: 80vh;
 }
 
 .hero-section img {
@@ -326,6 +327,7 @@ section {
 }
 
 /* --- EVENTOS --- */
+/* --- EVENTOS --- */
 #eventos {
     background-color: #ffffff;
 }
@@ -333,19 +335,22 @@ section {
 .evento-banner {
     max-width: 1200px;
     margin: 0 auto 60px;
-    height: 300px;
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1540039155732-d68a280c4436?auto=format&fit=crop&w=1200&q=80') center/cover;
     border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden; /* Asegura que la imagen respete los bordes redondeados del contenedor */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15); /* Sombra elegante */
+    cursor: pointer; /* Cambia el cursor para indicar que es clickeable/interactivo */
 }
 
-.evento-banner h2 {
-    color: #ffffff;
-    font-family: var(--font-heading);
-    font-size: 3rem;
-    letter-spacing: 2px;
+.evento-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.4s ease; /* Prepara la imagen para la animación de hover */
+}
+
+/* Efecto hover: pequeño acercamiento al pasar el mouse */
+.evento-banner:hover img {
+    transform: scale(1.03); 
 }
 
 .marcas-title {
