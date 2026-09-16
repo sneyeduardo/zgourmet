@@ -65,13 +65,44 @@ nav a {
     font-weight: 700;
     text-transform: uppercase;
     padding-bottom: 5px;
-    transition: color 0.3s;
+    position: relative; /* Necesario para la animación de la línea */
+    transition: color 0.3s ease;
+}
+/* =========================================
+   ANIMACIÓN DEL MENÚ: LÍNEA DESLIZANTE
+   ========================================= */
+
+/* 1. Creamos la línea pero la ocultamos ajustando su ancho a 0 */
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--primary-yellow);
+    transition: width 0.3s ease-out; /* Esta es la magia de la animación */
 }
 
-nav a:hover, nav a.active {
+/* 2. Cuando el usuario pasa el mouse, el color de la letra cambia y la línea crece */
+nav a:hover {
     color: var(--primary-yellow);
-    border-bottom: 2px solid var(--primary-yellow);
 }
+
+nav a:hover::after {
+    width: 100%; /* La línea crece del 0% al 100% hacia la derecha */
+}
+
+/* 3. Para la sección activa (la que marca el JS al hacer scroll) */
+nav a.active {
+    color: var(--primary-yellow);
+}
+
+nav a.active::after {
+    width: 100%; /* Mantiene la línea fija si estás en esa sección */
+}
+
+
 /* --- ESTILOS DE LOS PUNTOS DEL SLIDER --- */
 .hero-dots {
     position: absolute;
@@ -101,6 +132,7 @@ nav a:hover, nav a.active {
 /* --- HERO (CARRUSEL DE ANUNCIOS TIPO VENTANA) --- */
 .hero-section {
     background-color: #ffffff; 
+    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
     width: 100%;
     display: flex;
     justify-content: center;
@@ -300,14 +332,12 @@ section {
 
 /* --- ESTILOS DE LA TARJETA (BLOQUE COMPLETO) --- */
 .card-propuesta {
-    background: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    text-align: center;
-    padding-bottom: 30px;
-    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15); /* Sombra elegante */
+    overflow: hidden; /* Mantiene los bordes redondeados */
+    cursor: pointer;
     
-    /* Ocultas inicialmente */
+    /* Configuración base de la animación de entrada */
     opacity: 0;
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
@@ -322,11 +352,20 @@ section {
     opacity: 1;
     transform: translate(0, 0); 
 }
+.img-propuesta-full {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.4s ease; /* Prepara el zoom */
+}
+.card-propuesta.show:hover .img-propuesta-full {
+    transform: scale(1.05);
+}
 
 /* Hover general de la tarjeta */
 .card-propuesta.show:hover {
-    transform: translateY(-10px);
-    transition: transform 0.3s ease; 
+    box-shadow: 0 20px 40px rgba(246, 181, 25, 0.2); /* Sombra amarilla sutil */
 }
 
 /* --- ESTILOS DE LA IMAGEN SUPERIOR --- */
@@ -425,7 +464,7 @@ section {
 /* --- EVENTOS --- */
 /* --- EVENTOS --- */
 #eventos {
-    background-color: #ffffff;
+    background-color: var(--bg-light);
 }
 
 .evento-banner {
@@ -488,25 +527,42 @@ section {
 }
 
 .marca-box {
-    /* Muestra 4 marcas a la vez en PC. En pantallas más pequeñas, cambiará con los media queries de abajo */
-    flex: 0 0 auto;
-    min-width: 200px;
+    /* Muestra 4 marcas a la vez en PC */
+    flex: 0 0 calc(25% - 15px); 
+    min-width: 180px;
+    scroll-snap-align: start;
+    
     background: #ffffff;
     border: 1px solid #eaeaea;
     border-radius: 10px;
-    padding: 30px 20px;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    color: #ccc;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-    transition: transform 0.3s ease, border-color 0.3s, color 0.3s;
+    padding: 20px;
+    
+    /* Centrado perfecto para la imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px; /* Altura fija para uniformidad */
+    
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, border-color 0.3s, box-shadow 0.3s;
+}
+.marca-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Evita que los logos se estiren o deformen */
+    
+    /* EFECTO PRO: Logos en gris y semitransparentes por defecto */
+    filter: grayscale(100%) opacity(60%); 
+    transition: filter 0.4s ease;
 }
 
 .marca-box:hover {
     transform: translateY(-5px);
-    color: var(--primary-yellow);
     border-color: var(--primary-yellow);
+    box-shadow: 0 8px 20px rgba(246, 181, 25, 0.15); /* Sombra con el amarillo de tu paleta */
+}
+.marca-box:hover img {
+    filter: grayscale(0%) opacity(100%);
 }
 
 .carousel-btn {
@@ -712,4 +768,51 @@ footer {
 .fade-up.show {
     opacity: 1;
     transform: translateY(0);
+}
+/* =========================================
+   BOTONES RÁPIDOS (IMÁGENES CLICKABLES)
+   ========================================= */
+#botones-rapidos {
+    background-color: var(--bg-light); /* Fondo que empalma con la siguiente sección */
+    padding: 20px 5% 40px; /* Menos padding superior para que queden cerca del slider */
+}
+
+.botones-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap; /* Permite que los botones bajen a la siguiente línea en celulares */
+}
+
+/* Estructura del botón (El enlace 'a') */
+.img-btn {
+    display: block;
+    flex: 1 1 150px; /* Crecen y se adaptan, tamaño mínimo 250px */
+    max-width: 300px;
+    height: 50px; /* Altura fija para que todos los botones se vean iguales */
+    border-radius: 15px; /* Bordes redondeados del mismo estilo que el resto de la web */
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+/* La imagen dentro del botón */
+.img-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Evita que la imagen se deforme, llenando el botón */
+    transition: transform 0.4s ease;
+}
+
+/* Efectos al pasar el mouse por encima (Interactividad) */
+.img-btn:hover {
+    transform: translateY(-5px); /* Se eleva ligeramente */
+    box-shadow: 0 12px 30px rgba(246, 181, 25, 0.3); /* Sombra amarilla sutil */
+}
+
+.img-btn:hover img {
+    transform: scale(1.08); /* La imagen hace un pequeño zoom interior */
 }
