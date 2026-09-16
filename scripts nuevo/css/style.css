@@ -25,7 +25,13 @@ body {
 
 /* --- HEADER & NAV --- */
 header {
-    background-color: var(--bg-dark);
+    /* Cambiamos el negro sólido por un negro al 80% de transparencia */
+    background-color: rgba(0, 0, 0, 0.85); 
+    
+    /* Agregamos el efecto de vidrio esmerilado (blur) */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
     padding: 20px 5%;
     display: flex;
     justify-content: space-between;
@@ -33,6 +39,8 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    /* Agregamos una sombra muy sutil para separarlo del contenido */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
 }
 
 .logo {
@@ -64,43 +72,94 @@ nav a:hover, nav a.active {
     color: var(--primary-yellow);
     border-bottom: 2px solid var(--primary-yellow);
 }
+/* --- ESTILOS DE LOS PUNTOS DEL SLIDER --- */
+.hero-dots {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 30; /* Asegura que estén por encima de las imágenes */
+}
 
-/* --- HERO (FLYER YAKOFEST) --- */
-/* --- HERO (FLYER YAKOFEST) --- */
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
+
+.dot.active {
+    background-color: var(--primary-yellow);
+    width: 30px; /* Se estira elegante como una pastilla/cápsula */
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+/* --- HERO (CARRUSEL DE ANUNCIOS TIPO VENTANA) --- */
 .hero-section {
     background-color: #ffffff; 
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 5%; /* Evita que choque con los bordes en móviles */
+    padding: 0 5%; 
     margin-top: 50px; 
     margin-bottom: 50px; 
-    min-height: 80vh;
 }
 
-.hero-section img {
-    width: 100%;
-    max-width: 1400px;
-    height: auto;
-    display: block;
-    border-radius: 10px; /* Opcional: Un pequeño borde redondeado al flyer suele verse muy moderno */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Opcional: Sombra para que el flyer resalte del fondo blanco */
-}
-.flyer-wrapper {
-    position: relative;
+/* 1. La Ventana Maestra */
+.hero-slider {
+    position: relative; /* Importante para el truco */
     width: 100%;
     max-width: 1400px;
     border-radius: 10px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    overflow: hidden; /* Muy importante para que el brillo no se salga de la tarjeta */
+    overflow: hidden;/* Corta todo lo que se salga de la ventana */
+    will-change: transform;
+}
+
+/* 2. Todos los slides por defecto flotan y cubren el 100% de la ventana */
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease-in-out;
+    z-index: 1;
+}
+
+/* 3. ¡EL TRUCO MÁGICO! El primer slide marca el tamaño real de la ventana */
+.hero-slide:first-child {
+    position: relative; /* Al ser relativo, empuja los bordes y dicta el tamaño */
+}
+
+.hero-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 2;
+}
+
+/* 4. Envoltorio e Imágenes */
+.flyer-wrapper {
+    width: 100%;
+    height: 100%;
 }
 
 .flyer-bg {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
+    object-fit: cover; /* Hace que las fotos 2, 3, 4 rellenen el molde sin deformarse */
+    object-position: center top;
+    transition: transform 0.1s ease-out;
 }
+
 .overlay-container {
     position: absolute;
     top: 0;
@@ -112,41 +171,80 @@ nav a:hover, nav a.active {
     align-items: center;
     pointer-events: none; 
 }
+
 /* =========================================
-   ANIMACIÓN 1: Deslizamiento (Right to Left)
+   TEXTOS Y BOTÓN (Alineación segura a la derecha)
    ========================================= */
-.overlay-image-wrapper {
+.hero-content {
+    position: absolute;
+    bottom: 10%;
+    right: 8%; /* Lo pegamos a la derecha de forma segura para móviles y PC */
+    z-index: 20;
+    pointer-events: auto; /* Permite hacer clic en el botón */
+}
+
+.btn-pulse {
+    display: inline-block;
+    background-color: var(--primary-yellow);
+    color: #000;
+    padding: 15px 35px;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    text-decoration: none;
+    border-radius: 30px;
+    text-transform: uppercase;
     position: relative;
-    width: 40%; /* Ajusta este % si quieres la imagen más grande o más pequeña */
-    max-width: 700px;
+    top: -80px; /* Mueve el botón 30px hacia ABAJO. Si usas -30px, sube. */
+    left: -70px;
+}
+
+/* =========================================
+   ANIMACIONES (Solo actúan en la foto que estás viendo)
+   ========================================= */
+.hero-slide.active .flyer-bg {
+    animation: zoomFondo 20s infinite alternate linear;
+}
+@keyframes zoomFondo {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.15); }
+}
+
+.hero-slide.active .btn-pulse {
+    animation: palpitar 2s infinite;
+}
+@keyframes palpitar {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(246, 181, 25, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(246, 181, 25, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(246, 181, 25, 0); }
+}
+
+/* Imagen Transparente Animada */
+.overlay-image-wrapper {
+    position: absolute;
+    width: clamp(200px, 40%, 600px); /* Tamaño que se adapta a pantallas grandes y chicas */
+    bottom: 50%;
+    left: 58%; /* Puesta a la izquierda para no chocar con el botón */
     opacity: 0;
-    transform: translateX(150px); /* Inicia desplazado a la derecha */
-    margin-bottom: 11%;
-    right: -25%;
-    /* Configuración de entrada */
-    animation: slideInRight 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    animation-delay: 0.3s; /* Empieza un instante después de cargar la página */
-    overflow: hidden; /* Corta la luz para que solo brille sobre la imagen */
+    transform: translateX(150px);
+    overflow: hidden; 
 }
 
 .overlay-image-wrapper img {
     width: 100%;
     height: auto;
     display: block;
-    
-    /* NOTA IMPORTANTE: Como tu imagen es JPG (tiene fondo), si quieres que el fondo blanco 
-       desaparezca y solo se vea el diseño, descomenta la siguiente línea: */
-    /* mix-blend-mode: multiply; */
 }
 
+.hero-slide.active .overlay-image-wrapper {
+    animation: slideInRight 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    animation-delay: 0.3s; 
+}
 @keyframes slideInRight {
     0% { transform: translateX(200px); opacity: 0; }
     100% { transform: translateX(0); opacity: 1; }
 }
 
-/* =========================================
-   ANIMACIÓN 2: Brillo de Luz (Left to Right)
-   ========================================= */
+/* Brillo de Luz */
 .overlay-image-wrapper::after {
     content: '';
     position: absolute;
@@ -154,19 +252,17 @@ nav a:hover, nav a.active {
     left: -150%;
     width: 50%;
     height: 100%;
-    /* Gradiente blanco difuminado que simula luz */
     background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
-    transform: skewX(-25deg); /* Inclinación de la franja de luz */
+    transform: skewX(-25deg);
     z-index: 10;
-    
-    /* El brillo ocurre EXACTAMENTE al terminar de aterrizar la imagen (0.3s + 1s) */
-    animation: shineGlare 1.5s ease-in-out forwards;
-    animation-delay: 1.3s; 
 }
-
+.hero-slide.active .overlay-image-wrapper::after {
+    animation: shineGlare 1.5s ease-in-out forwards;
+    animation-delay: 1.3s;
+}
 @keyframes shineGlare {
     0% { left: -150%; }
-    100% { left: 200%; } /* Cruza la imagen por completo hacia la derecha */
+    100% { left: 200%; } 
 }
 /* --- TÍTULOS DE SECCIÓN --- */
 .section-title {
@@ -367,23 +463,23 @@ section {
 .carousel-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* Truco para romper el límite de la sección y llegar de punta a punta */
+    width: 100vw;
     position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px; /* Deja espacio a los lados para los botones */
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .marcas-grid {
-    display: flex;
+    display: flex; /* ¡AQUÍ ESTABA EL ERROR! Cambiamos 'none' por 'flex' */
     gap: 20px;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
+    
     -ms-overflow-style: none;  /* Oculta scrollbar en IE y Edge */
     scrollbar-width: none;  /* Oculta scrollbar en Firefox */
     padding: 10px 0;
     width: 100%;
+    white-space: nowrap;
 }
 
 /* Oculta scrollbar en Chrome, Safari y Opera */
@@ -393,10 +489,8 @@ section {
 
 .marca-box {
     /* Muestra 4 marcas a la vez en PC. En pantallas más pequeñas, cambiará con los media queries de abajo */
-    flex: 0 0 calc(25% - 15px); 
+    flex: 0 0 auto;
     min-width: 200px;
-    scroll-snap-align: start;
-    
     background: #ffffff;
     border: 1px solid #eaeaea;
     border-radius: 10px;
@@ -454,30 +548,31 @@ section {
 .ubicacion-subtitle {
     text-align: center;
     color: var(--text-gray);
-    max-width: 600px;
-    margin: -20px auto 40px;
+    max-width: 800px; /* Más ancho para que acompañe el nuevo tamaño del bloque */
+    margin: -20px auto 50px;
     line-height: 1.6;
+    font-size: 1.1rem; /* Letra un poco más grande */
 }
 
 .ubicacion-card {
     display: flex;
     flex-wrap: wrap;
     background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-    max-width: 1000px;
+    border-radius: 25px; /* Bordes un poco más suaves */
+    box-shadow: 0 20px 50px rgba(0,0,0,0.1); /* Sombra más amplia y elegante */
+    max-width: 1300px; /* ¡AQUÍ CRECE A LO ANCHO! (Antes era 1000px) */
     margin: 0 auto;
     overflow: hidden;
 }
 
 .mapa {
     flex: 1 1 500px;
-    min-height: 400px;
+    min-height: 600px; /* ¡AQUÍ CRECE A LO ALTO! (Antes era 400px) */
 }
 
 .info-ubicacion {
     flex: 1 1 400px;
-    padding: 50px;
+    padding: 70px; /* Más espacio interno (Antes era 50px) */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -485,22 +580,29 @@ section {
 
 .info-ubicacion h3 {
     font-family: var(--font-heading);
-    font-size: 1.8rem;
-    margin-bottom: 30px;
+    font-size: 2.2rem; /* Título más grande (Antes 1.8rem) */
+    margin-bottom: 35px;
+    letter-spacing: 1px;
+}
+
+.info-item {
+    margin-bottom: 30px; /* Mayor separación entre dirección y horario */
 }
 
 .info-item h4 {
     color: var(--primary-yellow);
     font-family: var(--font-heading);
-    font-size: 0.9rem;
-    margin-bottom: 5px;
+    font-size: 1.1rem; /* Subtítulos más grandes (Antes 0.9rem) */
+    margin-bottom: 10px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .info-item p {
     color: var(--text-gray);
-    margin-bottom: 25px;
-    line-height: 1.5;
+    margin-bottom: 0;
+    line-height: 1.6;
+    font-size: 1.1rem; /* Texto más legible */
 }
 
 .btn-llegar {
@@ -508,55 +610,63 @@ section {
     color: #ffffff;
     font-family: var(--font-heading);
     font-weight: 700;
+    font-size: 1.1rem; /* Letra del botón más grande */
     text-align: center;
     text-decoration: none;
-    padding: 15px;
-    border-radius: 30px;
+    padding: 18px; /* Botón más grueso */
+    border-radius: 40px;
     text-transform: uppercase;
-    transition: background 0.3s;
-    margin-top: 10px;
+    transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+    margin-top: 15px;
 }
 
+/* Le agregamos un efecto de elevación al botón al pasar el mouse */
 .btn-llegar:hover {
     background-color: var(--primary-yellow);
     color: #000;
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 20px rgba(246, 181, 25, 0.3);
 }
 
 /* --- FOOTER --- */
 footer {
     background-color: var(--bg-footer);
     color: #ffffff;
-    padding: 60px 5% 20px;
+    /* Aumentamos el relleno superior e inferior (de 60px a 100px y de 20px a 50px) */
+    padding: 100px 5% 50px; 
 }
 
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
-    max-width: 1200px;
+    /* Hacemos que las columnas requieran más espacio antes de romperse (de 250px a 300px) */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 60px; /* Mayor separación entre columnas (de 40px a 60px) */
+    max-width: 1300px; /* Contenedor más ancho */
     margin: 0 auto;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 40px;
+    padding-bottom: 60px; /* Más espacio antes de la línea divisoria final */
 }
 
 .footer-col h3 {
     font-family: var(--font-heading);
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+    font-size: 2.2rem; /* Título principal mucho más grande (era 1.5rem) */
+    margin-bottom: 25px;
+    letter-spacing: 2px;
 }
 
 .footer-col h4 {
     color: var(--primary-yellow);
     font-family: var(--font-heading);
-    font-size: 1rem;
-    margin-bottom: 20px;
+    font-size: 1.2rem; /* Subtítulos más grandes (era 1rem) */
+    margin-bottom: 25px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .footer-col p {
     color: #a0a0a0;
-    font-size: 0.9rem;
-    line-height: 1.6;
+    font-size: 1.1rem; /* Texto general más grande (era 0.9rem) */
+    line-height: 1.8; /* Mayor interlineado para lectura más cómoda */
     margin-bottom: 20px;
 }
 
@@ -564,22 +674,42 @@ footer {
     color: var(--primary-yellow);
     text-decoration: none;
     font-weight: 600;
+    font-size: 1.1rem; /* Enlaces más grandes */
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
+    gap: 12px;
+    margin-bottom: 18px;
+    transition: transform 0.3s, color 0.3s;
+}
+
+/* Efecto hover: los links se mueven un poco a la derecha al pasar el mouse */
+.social-link:hover {
+    transform: translateX(8px);
+    color: #ffffff;
 }
 
 .footer-bottom {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 20px auto 0;
-    font-size: 0.75rem;
-    color: #666;
+    max-width: 1300px;
+    margin: 30px auto 0;
+    font-size: 0.95rem; /* Textos inferiores más grandes (era 0.75rem) */
+    color: #888;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
 }
 
 .text-yellow { color: var(--primary-yellow); }
+
+/* --- ANIMACIÓN FADE UP GENERAL --- */
+.fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}

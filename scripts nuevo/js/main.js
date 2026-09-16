@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     
+    // ==========================================
     // 1. Lógica para resaltar el menú activo al hacer scroll
+    // ==========================================
     const sections = document.querySelectorAll('section, footer');
     const navLinks = document.querySelectorAll('#nav-menu a');
 
@@ -9,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
             
             // Verificamos si la posición de scroll actual está dentro de la sección
             if (pageYOffset >= (sectionTop - 150)) {
@@ -25,58 +26,151 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-});
-// 2. Lógica del Carrusel de Marcas
+
+    // ==========================================
+    // 2. Lógica del Carrusel de Marcas (Movimiento Automático Continuo y Bucle Infinito)
+    // ==========================================
     const carousel = document.getElementById('marcas-carousel');
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
 
-    if (carousel && prevBtn && nextBtn) {
-        // Al hacer clic en siguiente
-        nextBtn.addEventListener('click', () => {
-            const scrollAmount = carousel.clientWidth / 2; // Desplaza media pantalla a la derecha
-            carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    if (carousel) {
+        // Clonar todos los hijos para el efecto de bucle infinito real
+        const children = [...carousel.children];
+        children.forEach(child => {
+            const clone = child.cloneNode(true);
+            carousel.appendChild(clone);
         });
 
-        // Al hacer clic en anterior
-        prevBtn.addEventListener('click', () => {
-            const scrollAmount = carousel.clientWidth / 2; // Desplaza media pantalla a la izquierda
-            carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
+        let isPaused = false;
+        let scrollSpeed = 1; // Velocidad del desplazamiento automático
 
-        // Auto-Play: Mueve el carrusel automáticamente cada 3 segundos
-        let autoPlayInterval = setInterval(() => {
-            // Si llega al final, vuelve al principio
-            if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
-                carousel.scrollTo({ left: 0, behavior: 'smooth' });
-            } else {
-                carousel.scrollBy({ left: 250, behavior: 'smooth' });
+        function autoScroll() {
+            if (!isPaused) {
+                carousel.scrollLeft += scrollSpeed;
+                
+                // Cuando el scroll llega a la mitad, regresamos al inicio de forma imperceptible
+                if (carousel.scrollLeft >= carousel.scrollWidth / 2) {
+                    carousel.scrollLeft = 0;
+                }
             }
-        }, 3000);
+            requestAnimationFrame(autoScroll); 
+        }
 
-        // Opcional: Pausar el auto-play si el usuario pone el mouse encima del carrusel
-        carousel.parentElement.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+        // Iniciar la animación continua
+        requestAnimationFrame(autoScroll);
+
+        // Pausar al pasar el ratón o tocar en móviles
+        carousel.addEventListener('mouseenter', () => isPaused = true);
+        carousel.addEventListener('mouseleave', () => isPaused = false);
+        carousel.addEventListener('touchstart', () => isPaused = true);
+        carousel.addEventListener('touchend', () => isPaused = false);
+
+        // Botones manuales (en caso de que los uses más adelante)
+        if (nextBtn && prevBtn) {
+            nextBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+            prevBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+        }
     }
-    // 3. Animación de los bloques completos de las propuestas
-    const observerTarjetas = new IntersectionObserver((entries, observer) => {
+
+
+    // 3. Animación de aparición suave (IntersectionObserver unificado)
+    const observerElementos = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
-            // Cuando la tarjeta entra en la pantalla del usuario
             if (entry.isIntersecting) {
                 entry.target.classList.add('show');
-                // Opcional pero recomendado: dejar de observar la tarjeta una vez que ya apareció
                 observer.unobserve(entry.target); 
             }
         });
     }, { 
-        // ¡NUEVO MARGEN DE SEGURIDAD! 
-        // El -100px hace que la animación espere hasta que el usuario 
-        // baje la pantalla 100 píxeles más adentro de la sección.
-        rootMargin: '0px 0px -100px 0px', 
-        threshold: 0.15 
+        rootMargin: '0px 0px -50px 0px', 
+        threshold: 0.1 
     });
 
-    // Seleccionamos todas las tarjetas y las ponemos bajo observación
-    const tarjetasPropuestas = document.querySelectorAll('.card-propuesta');
-    tarjetasPropuestas.forEach((tarjeta) => {
-        observerTarjetas.observe(tarjeta);
+    // Seleccionamos las tarjetas de propuestas y los nuevos elementos fade-up
+    const elementosAnimados = document.querySelectorAll('.card-propuesta, .fade-up');
+    elementosAnimados.forEach((elemento) => {
+        observerElementos.observe(elemento);
     });
+
+
+    // ==========================================
+    // 4. Lógica del Hero Slider (Anuncios + Sincronización de Puntos)
+    // ==========================================
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dots .dot');
+
+    if (heroSlides.length > 0) {
+        let currentHeroSlide = 0;
+        const slideDuration = 25000; // 25 segundos por anuncio
+        let slideInterval;
+
+        function goToSlide(index) {
+            // Apagar slide y punto actual
+            heroSlides[currentHeroSlide].classList.remove('active');
+            if (dots.length > 0 && dots[currentHeroSlide]) {
+                dots[currentHeroSlide].classList.remove('active');
+            }
+
+            // Cambiar al nuevo índice
+            currentHeroSlide = index;
+
+            // Encender nuevo slide y punto
+            heroSlides[currentHeroSlide].classList.add('active');
+            if (dots.length > 0 && dots[currentHeroSlide]) {
+                dots[currentHeroSlide].classList.add('active');
+            }
+        }
+
+        function nextHeroSlide() {
+            let nextIndex = (currentHeroSlide + 1) % heroSlides.length;
+            goToSlide(nextIndex);
+        }
+
+        // Iniciar el temporizador automático
+        slideInterval = setInterval(nextHeroSlide, slideDuration);
+
+        // Permitir cambiar de slide haciendo clic en los puntos indicadores
+        if (dots.length > 0) {
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    // Reiniciar el temporizador para que no cambie de golpe justo después del clic
+                    clearInterval(slideInterval);
+                    slideInterval = setInterval(nextHeroSlide, slideDuration);
+                });
+            });
+        }
+    }
+    // 5. Efecto Parallax Suave con el Mouse en el Hero Slider
+    const heroSection = document.querySelector('.hero-section');
+    
+    if (heroSection) {
+        heroSection.addEventListener('mousemove', (e) => {
+            const activeSlideBg = document.querySelector('.hero-slide.active .flyer-bg');
+            if (!activeSlideBg) return;
+
+            const rect = heroSection.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            // Intensidad del movimiento (números más pequeños = más sutil)
+            const moveX = x * 0.015;
+            const moveY = y * 0.015;
+
+            activeSlideBg.style.transform = `scale(1.08) translate(${moveX}px, ${moveY}px)`;
+        });
+
+        // Volver a la posición original cuando el mouse salga del banner
+        heroSection.addEventListener('mouseleave', () => {
+            const activeSlideBg = document.querySelector('.hero-slide.active .flyer-bg');
+            if (activeSlideBg) {
+                activeSlideBg.style.transform = 'scale(1) translate(0px, 0px)';
+            }
+        });
+    }
+});
