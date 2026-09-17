@@ -234,11 +234,11 @@ nav a.active::after {
    ANIMACIONES (Solo actúan en la foto que estás viendo)
    ========================================= */
 .hero-slide.active .flyer-bg {
-    animation: zoomFondo 20s infinite alternate linear;
+    animation: zoomFondo 5s infinite alternate linear;
 }
 @keyframes zoomFondo {
     0% { transform: scale(1); }
-    100% { transform: scale(1.15); }
+    100% { transform: scale(1.04); }
 }
 
 .hero-slide.active .btn-pulse {
@@ -464,7 +464,7 @@ section {
 /* --- EVENTOS --- */
 /* --- EVENTOS --- */
 #eventos {
-    background-color: var(--bg-light);
+    background-color: white;
 }
 
 .evento-banner {
@@ -472,7 +472,7 @@ section {
     margin: 0 auto 60px;
     border-radius: 20px;
     overflow: hidden; /* Asegura que la imagen respete los bordes redondeados del contenedor */
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15); /* Sombra elegante */
+    
     cursor: pointer; /* Cambia el cursor para indicar que es clickeable/interactivo */
 }
 
@@ -1059,11 +1059,13 @@ section {
 /* Estructura del botón (El enlace 'a') */
 .img-btn {
     display: block;
-    flex: 1 1 150px; /* Crecen y se adaptan, tamaño mínimo 250px */
+    flex: 1 1 150px;
     max-width: 300px;
-    height: 50px; /* Altura fija para que todos los botones se vean iguales */
-    border-radius: 15px; /* Bordes redondeados del mismo estilo que el resto de la web */
-    overflow: hidden;
+    /* Cambiamos la altura fija de 50px por auto para que no se recorte */
+    height: auto; 
+    border-radius: 15px;
+    /* Mantenemos el hidden para redondear las esquinas de tu imagen */
+    overflow: hidden; 
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
@@ -1072,15 +1074,15 @@ section {
 /* La imagen dentro del botón */
 .img-btn img {
     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Evita que la imagen se deforme, llenando el botón */
-    transition: transform 0.4s ease;
+    height: auto; /* Mantiene las proporciones originales perfectas */
+    display: block;
 }
 
 /* Efectos al pasar el mouse por encima (Interactividad) */
 .img-btn:hover {
-    transform: translateY(-5px); /* Se eleva ligeramente */
-    box-shadow: 0 12px 30px rgba(246, 181, 25, 0.3); /* Sombra amarilla sutil */
+    /* Combinamos el salto hacia arriba con un zoom del 5% a toda la pieza */
+    transform: translateY(-5px) scale(1.05); 
+    box-shadow: 0 12px 30px rgba(246, 181, 25, 0.3); 
 }
 
 .img-btn:hover img {
@@ -1236,4 +1238,220 @@ section {
     .experiencia-logos {
         flex-wrap: wrap; /* Permite que los logos bajen de línea si no caben */
     }
+}
+/* =========================================
+   ELEMENTOS MÓVILES OCULTOS EN PC
+   ========================================= */
+.mobile-header-text, .mobile-bottom-nav {
+    display: none;
+}
+
+/* =========================================
+   ADAPTACIÓN MÓVIL (APP LOOK)
+   ========================================= */
+@media (max-width: 768px) {
+    /* --- 0. AJUSTES GENERALES DEL BODY --- */
+    body {
+        padding-bottom: 80px; /* Dar espacio al fixed bottom nav */
+    }
+
+    /* --- 1. HEADER Y MENÚ --- */
+    header {
+        justify-content: center; 
+        background-color: #0A4342; /* Verde oscuro del diseño móvil */
+        padding: 15px 5%;
+    }
+    #nav-menu {
+        display: none; /* Oculta menú PC */
+    }
+    .logo {
+        color: #ffffff; 
+    }
+
+    /* --- 2. HERO SLIDER --- */
+    .hero-section {
+        padding: 0 5% 20px; 
+    }
+    .hero-slider {
+        border-radius: 20px; 
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    .hero-slide:first-child {
+        height: 520px; /* Altura fija para evitar desbordes */
+    }
+    .hero-content {
+        right: 0;
+        left: 0;
+        bottom: 15%; 
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .btn-pulse {
+        top: 0;      
+        left: 0;     
+        padding: 12px 30px;
+        font-size: 0.95rem;
+    }
+    .overlay-image-wrapper {
+        left: 50%;
+        bottom: 35%; 
+        width: 65%;  
+        transform: translateX(-50%); 
+    }
+    .hero-slide.active .overlay-image-wrapper {
+        animation: slideUpMobile 1s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        animation-delay: 0.3s;
+    }
+
+    /* --- 3. BOTONES RÁPIDOS (2x2) --- */
+    #botones-rapidos {
+        padding: 0 5% 30px; 
+    }
+    .botones-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        gap: 15px; 
+    }
+    .img-btn {
+        margin: 0;
+        width: 100%;
+        max-width: 100%; 
+    }
+
+    /* --- 4. SECCIÓN PROPUESTAS --- */
+    #propuestas {
+        padding: 20px 5%;
+        background: #ffffff;
+    }
+    #propuestas .section-title {
+        display: none; /* Ocultar título PC */
+    }
+    .mobile-header-text {
+        display: block;
+        text-align: center;
+        margin: 10px 0 30px;
+    }
+    .mobile-header-text h2 {
+        font-family: var(--font-heading);
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #0A4342;
+        line-height: 1.1;
+        margin-bottom: 8px;
+        letter-spacing: -1px;
+    }
+    .mobile-header-text p {
+        font-family: var(--font-body);
+        font-size: 1rem;
+        color: #666;
+    }
+    .propuestas-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .card-propuesta {
+        border-radius: 15px;
+        box-shadow: none; 
+    }
+    .img-propuesta-full {
+        border-radius: 15px;
+    }
+
+    /* ANIMACIÓN EN CASCADA MÓVIL (CORREGIDA) */
+    .card-propuesta:nth-child(1),
+    .card-propuesta:nth-child(2),
+    .card-propuesta:nth-child(3) {
+        transform: translateX(150px); /* Todas inician a la derecha */
+        opacity: 0;
+    }
+    
+    /* Estado final forzado para móvil (Llegan a 0) */
+    .card-propuesta.show {
+        transform: translateX(0) !important; 
+        opacity: 1 !important;
+    }
+
+    .card-propuesta:nth-child(1) { transition-delay: 0s; }
+    .card-propuesta:nth-child(2) { transition-delay: 0.2s; }
+    .card-propuesta:nth-child(3) { transition-delay: 0.4s; }
+
+
+    /* --- 5. EXPERIENCIA Y BOTÓN --- */
+    .btn-outline-dark {
+        margin-left: 0; 
+        margin-top: 10px; 
+        font-size: 1rem; 
+        width: 80%; 
+        max-width: 300px; 
+        text-align: center; 
+    }
+
+    /* --- 6. BARRA DE NAVEGACIÓN INFERIOR --- */
+    .mobile-bottom-nav {
+        display: flex;
+        position: fixed;
+        /* Usamos bottom y margin-bottom en negativo combinado con safe-area-inset 
+           para evitar los saltos de la barra del navegador en iOS y Android */
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.95); /* Leve transparencia tipo cristal */
+        backdrop-filter: blur(10px); /* Efecto cristal para que se vea nativo */
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(0,0,0,0.05);
+        
+        /* Padding inferior dinámico: Si el teléfono tiene barra de gestos abajo (ej. iPhone), 
+           le da espacio. Si no, usa 15px */
+        padding: 10px 0 calc(15px + env(safe-area-inset-bottom)); 
+        
+        justify-content: space-around;
+        z-index: 9999; /* Z-index extremo para que JAMÁS se quite ni quede detrás de nada */
+        
+        box-shadow: 0 -10px 30px rgba(0,0,0,0.08); /* Sombra más difuminada */
+        
+        /* ACELERACIÓN POR HARDWARE: Esto evita que se "trabe" o parpadee al hacer scroll */
+        transform: translateZ(0); 
+        will-change: transform;
+    }
+    .nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #999;
+        font-size: 0.75rem;
+        font-weight: 600;
+        gap: 5px;
+        transition: transform 0.2s ease, color 0.3s;
+        /* Previene el resaltado azul que hacen los celulares al tocar un enlace */
+        -webkit-tap-highlight-color: transparent; 
+    }
+    .nav-item:active {
+        transform: scale(0.9);
+    }
+
+    .nav-item img {
+        width: 24px;
+        height: 24px;
+        filter: grayscale(100%) opacity(50%);
+        transition: filter 0.3s, transform 0.3s;
+    }
+    .nav-item.active {
+        color: #0A4342; /* Cambiamos a tu verde corporativo en vez de negro puro */
+    }
+    
+    .nav-item.active img {
+        /* Se quita el filtro gris y se deja el ícono a todo color o con brillo */
+        filter: grayscale(0%) brightness(0%); 
+        transform: translateY(-2px); /* El ícono activo sube sutilmente */
+    }
+}
+/* =========================================
+   NUEVAS ANIMACIONES MÓVILES (Fuera del @media)
+   ========================================= */
+@keyframes slideUpMobile {
+    0% { transform: translate(-50%, 50px); opacity: 0; }
+    100% { transform: translate(-50%, 0); opacity: 1; }
 }

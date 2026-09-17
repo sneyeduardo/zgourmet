@@ -77,24 +77,24 @@
         <div class="botones-grid fade-up">
             
             <!-- Botón Imagen 1 -->
-            <a href="#contacto" class="img-btn">
-                <!-- Sustituye el src por la imagen de tu botón -->
-                <img src="assets/img/Botones-coctel.png" alt="Botón Reservas">
-            </a>
+            <a href="assets/img/PROXIMAMENTE.pdf" class="img-btn" target="_blank">
+    <!-- Sustituye el src por la imagen de tu botón -->
+    <img src="assets/img/Botones-coctel.png" alt="Botón Coctelería">
+</a>
             
-            <!-- Botón Imagen 2 -->
+            <!-- Botón Imagen 2 -->   
             <a href="#propuestas" class="img-btn">
                 <!-- Sustituye el src por la imagen de tu botón -->
                 <img src="assets/img/Botones-eventos.png" alt="Botón Menú">
             </a>
             
             <!-- Botón Imagen 3 (Puedes borrar este si solo necesitas 2) -->
-            <a href="#eventos" class="img-btn">
+            <a href="assets/img/PROXIMAMENTE.pdf" class="img-btn" target="_blank">
                 <!-- Sustituye el src por la imagen de tu botón -->
                 <img src="assets/img/Botones-sugerencias.png" alt="Botón Eventos">
             </a>
 
-            <a href="#eventos" class="img-btn">
+            <a href="assets/img/PROXIMAMENTE.pdf" class="img-btn" target="_blank">
                 <!-- Sustituye el src por la imagen de tu botón -->
                 <img src="assets/img/Botones-yakofest.png" alt="Botón Eventos">
             </a>
@@ -104,25 +104,35 @@
 
     <section id="propuestas">
         <h2 class="section-title fade-up">NUESTRAS PROPUESTAS</h2>
+        <div class="mobile-header-text">
+    <h2>¿Qué te gustaría<br>comer hoy?</h2>
+    <p>Elige una experiencia</p>
+</div>
         <div class="propuestas-grid">
             
             <!-- Tarjeta 1: MOAI (Solo Imagen) -->
             <div class="card-propuesta">
-                <!-- Cambia el 'src' por tu imagen diseñada para MOAI -->
-                <img src="assets/img/Moai BOTON.png" alt="Propuesta Moai" class="img-propuesta-full">
-            </div>
+    <!-- El enlace apunta al PDF y target="_blank" lo abre en una pestaña nueva -->
+    <a href="assets/img/PROXIMAMENTE.pdf" target="_blank">
+        <img src="assets/img/Moai BOTON.png" alt="Propuesta Moai" class="img-propuesta-full">
+    </a>
+</div>
             
             <!-- Tarjeta 2: CUORE (Solo Imagen) -->
             <div class="card-propuesta">
-                <!-- Cambia el 'src' por tu imagen diseñada para CUORE -->
-                <img src="assets/img/Cuore BOTON.png" alt="Propuesta Cuore" class="img-propuesta-full">
-            </div>
+    <!-- El enlace apunta al PDF y target="_blank" lo abre en una pestaña nueva -->
+    <a href="assets/img/PROXIMAMENTE.pdf" target="_blank">
+        <img src="assets/img/Cuore BOTON.png" alt="Propuesta Moai" class="img-propuesta-full">
+    </a>
+</div>
             
             <!-- Tarjeta 3: TOP BRASAS (Solo Imagen) -->
             <div class="card-propuesta">
-                <!-- Cambia el 'src' por tu imagen diseñada para TOP BRASAS -->
-                <img src="assets/img/Top brasa BOTON.png" alt="Propuesta Top Brasas" class="img-propuesta-full">
-            </div>
+    <!-- El enlace apunta al PDF y target="_blank" lo abre en una pestaña nueva -->
+    <a href="assets/img/PROXIMAMENTE.pdf" target="_blank">
+        <img src="assets/img/Top brasa BOTON.png" alt="Propuesta Moai" class="img-propuesta-full">
+    </a>
+</div>
 
         </div>
     </section>
@@ -203,7 +213,6 @@
             </div>
             
             <!-- Columna Derecha: Mapa -->
-            <!-- Columna Derecha: Mapa -->
             <div class="experiencia-map">
                 <!-- Solo debes poner el nombre exacto de tu imagen del mapa aquí -->
                 <img src="assets/img/Ubicación.png" alt="Mapa Macaracuay ZGourmet">
@@ -215,7 +224,7 @@
     <!-- ==============================================
          NUEVA SECCIÓN: PRE-FOOTER (APP) Y FOOTER
          ============================================== -->
-    <div class="footer-wrapper" id="contacto">
+    <div class="footer-wrapper">
         
         <!-- PRE-FOOTER (Llamado a la acción de la App) -->
         <section class="pre-footer-app">
@@ -236,24 +245,24 @@
                                 <!-- Delivery -->
                                 <div class="method">
                                     <img src="assets/img/Delivery_Icon-01.png" alt="Delivery" class="method-icon">
-                                    <span>Delivery</span>
+                                    
                                 </div>
                                 
                                 <!-- Pick-Up -->
                                 <div class="method">
                                     <img src="assets/img/Pick_Up-Icon-02.png" alt="Pick-Up" class="method-icon">
-                                    <span>Pick-Up</span>
+                                    
                                 </div>
                                 
                                 <!-- Reserva -->
                                 <div class="method">
                                     <img src="assets/img/Reserva_Icon-03.png" alt="Reserva" class="method-icon">
-                                    <span>Reserva</span>
+                                    
                                 </div>
                             </div>
                             
                             <!-- Botón centrado exactamente debajo de los íconos -->
-                            <a href="#propuestas" class="btn-comenzar">Comenzar pedido</a>
+                            <a href="https://wa.me/584123215504?text=Hola,%20me%20gustaría%20comenzar%20un%20pedido." class="btn-comenzar" target="_blank">Comenzar pedido</a>
                         </div>
                         
                     </div>
@@ -261,8 +270,9 @@
         </section>
 
         <!-- FOOTER PRINCIPAL (4 Columnas) -->
-        <footer class="main-footer">
-            <div class="footer-grid-pro">
+        <footer class="main-footer" id="contacto">
+    <div class="footer-grid-pro">
+        <!-- Todo el contenido de tus columnas sigue igual aquí adentro -->
                 
                 <!-- Columna 1: ZGOURMET -->
                 <div class="footer-brand">
@@ -270,17 +280,17 @@
                     <p>Tres experiencias en,<br>un mismo lugar</p>
                     <div class="social-icons">
                         <!-- Icono Instagram -->
-                        <a href="#">
-                            <img src="assets/img/Footer_instagram (1).png" alt="Instagram ZGourmet">
-                        </a>
+                        <a href="https://www.instagram.com/zgourmetccs/?hl=es-la" target="_blank" rel="noopener noreferrer"> 
+    <img src="assets/img/Footer_instagram (1).png" alt="Instagram ZGourmet"> 
+</a>
                         
                         <!-- Icono TikTok -->
-                        <a href="#">
+                         <a href="https://www.tiktok.com/@zgourmetccs" target="_blank" rel="noopener noreferrer"> 
                             <img src="assets/img/Footer_tik-tok.png" alt="TikTok ZGourmet">
                         </a>
                         
                         <!-- Icono WhatsApp -->
-                        <a href="#">
+                        <a href="https://wa.me/584123215504?text=Hola,%20me%20gustaría%20comenzar%20un%20pedido." target="_blank" rel="noopener noreferrer">
                             <img src="assets/img/Footer_whatsapp.png" alt="WhatsApp ZGourmet">
                         </a>
                     </div>
@@ -290,7 +300,6 @@
                 <div class="footer-links">
                     <h4 class="text-orange">EXPLORA</h4>
                     <ul>
-                        <li><a href="#inicio">inicio</a></li>
                         <li><a href="#propuestas">Restaurantes</a></li>
                         <li><a href="#eventos">Promociones</a></li>
                         <li><a href="#">Nosotros</a></li>
@@ -308,9 +317,10 @@
                 <div class="footer-contact">
                     <h4 class="text-orange">CONTÁCTANOS</h4>
                     <p>+58 412-3215504</p>
-                    <p>ZGourmet@gmail.com</p>
-                    <a href="#" class="btn-outline">Ordenar Ahora</a>
+                    <p>msa212grupo@gmail.com</p>
+                    <a href="https://wa.me/584123215504?text=Hola,%20me%20gustaría%20comenzar%20un%20pedido." class="btn-outline" target="_blank">Ordenar Ahora</a>
                 </div>
+                
 
             </div>
             
@@ -322,5 +332,25 @@
 
     <!-- Archivo JavaScript -->
     <script src="js/main.js"></script>
+    <!-- 2. NAVEGACIÓN INFERIOR (Justo antes de </body>) -->
+<nav class="mobile-bottom-nav">
+    <a href="#inicio" class="nav-item active">
+        <!-- Sustituye con las rutas de tus íconos -->
+        <img src="assets/img/icon-home.svg" alt="Inicio">
+        <span>Inicio</span>
+    </a>
+    <a href="#eventos" class="nav-item">
+        <img src="assets/img/icon-promos.svg" alt="Promos">
+        <span>Promos</span>
+    </a>
+    <a href="#contacto" class="nav-item">
+        <img src="assets/img/icon-pedidos.svg" alt="Pedidos">
+        <span>Pedidos</span>
+    </a>
+    <a href="#cuenta" class="nav-item">
+        <img src="assets/img/icon-cuenta.svg" alt="Cuenta">
+        <span>Cuenta</span>
+    </a>
+</nav>
 </body>
 </html>

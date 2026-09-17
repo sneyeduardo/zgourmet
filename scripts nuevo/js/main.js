@@ -3,7 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 1. Lógica para resaltar el menú activo al hacer scroll
     // ==========================================
-    const sections = document.querySelectorAll('section, footer');
+    // Añadimos '#contacto' explícitamente para que el JS lo rastree sin importar si es div, section o footer
+    const sections = document.querySelectorAll('section, #contacto'); 
     const navLinks = document.querySelectorAll('#nav-menu a');
 
     window.addEventListener('scroll', () => {
@@ -12,11 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             
-            // Verificamos si la posición de scroll actual está dentro de la sección
-            if (pageYOffset >= (sectionTop - 150)) {
+            // Aumentamos el margen a 250 para que detecte la sección un poco antes de llegar
+            if (pageYOffset >= (sectionTop - 250)) { 
                 current = section.getAttribute('id');
             }
         });
+
+        // TRUCO PARA EL FINAL DE PÁGINA: Si el usuario llega al límite inferior de la web, 
+        // forzamos a que "contacto" se marque como activo (ideal para pantallas muy grandes)
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+            current = 'contacto';
+        }
 
         navLinks.forEach(link => {
             link.classList.remove('active');
@@ -43,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         let isPaused = false;
-        let scrollSpeed = 1; // Velocidad del desplazamiento automático
+        let scrollSpeed = 2; // Velocidad del desplazamiento automático
 
         function autoScroll() {
             if (!isPaused) {
