@@ -131,15 +131,15 @@ nav a.active::after {
 }
 /* --- HERO (CARRUSEL DE ANUNCIOS TIPO VENTANA) --- */
 .hero-section {
-    background-color: #ffffff; 
-    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+    background-color: var(--bg-light); /* Aplicamos el gris unificado */
+    background-image: none; /* Quitamos el gradiente viejo */
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 5%; 
-    margin-top: 50px; 
-    margin-bottom: 50px; 
+    padding: 50px 5% 20px; /* 50px de aire arriba, 20px abajo */
+    margin-top: 0; 
+    margin-bottom: 0; /* <-- ESTO ELIMINA EL HUECO BLANCO */
 }
 
 /* 1. La Ventana Maestra */
@@ -1043,8 +1043,8 @@ section {
    BOTONES RÁPIDOS (IMÁGENES CLICKABLES)
    ========================================= */
 #botones-rapidos {
-    background-color: var(--bg-light); /* Fondo que empalma con la siguiente sección */
-    padding: 20px 5% 40px; /* Menos padding superior para que queden cerca del slider */
+    background-color: var(--bg-light); /* Mantiene el mismo gris */
+    padding: 0px 5% 50px; /* Le quitamos el padding superior para que se pegue al Slider */
 }
 
 .botones-grid {
