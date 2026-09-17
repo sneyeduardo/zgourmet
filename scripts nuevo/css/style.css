@@ -684,79 +684,349 @@ section {
     box-shadow: 0 10px 20px rgba(246, 181, 25, 0.3);
 }
 
-/* --- FOOTER --- */
-footer {
-    background-color: var(--bg-footer);
+/* =========================================
+   NUEVO FOOTER Y PRE-FOOTER (VERDE OSCURO)
+   ========================================= */
+
+/* Envoltorio principal con la curva en la parte superior */
+.footer-wrapper {
+    background-color: #0A4342; /* Verde oscuro elegante del diseño */
     color: #ffffff;
-    /* Aumentamos el relleno superior e inferior (de 60px a 100px y de 20px a 50px) */
-    padding: 100px 5% 50px; 
+    /* Creamos la curva perfecta usando border-radius (50% de ancho / 100px de alto) */
+    border-radius: 50% 50% 0 0 / 100px 100px 0 0;
+    margin-top: 20px;
+    padding-top: 60px;
+    font-family: var(--font-body);
 }
 
-.footer-grid {
-    display: grid;
-    /* Hacemos que las columnas requieran más espacio antes de romperse (de 250px a 300px) */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 60px; /* Mayor separación entre columnas (de 40px a 60px) */
-    max-width: 1300px; /* Contenedor más ancho */
+/* --- SECCIÓN PRE-FOOTER (APP) --- */
+.pre-footer-app {
+    padding: 0 5%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Línea separadora sutil */
+    padding-bottom: 60px;
+}
+
+.app-container {
+    max-width: 1400px; 
     margin: 0 auto;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 60px; /* Más espacio antes de la línea divisoria final */
+    display: flex;
+    justify-content: space-between; /* Empuja el celular a un lado y los textos al otro */
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+/* Celular */
+.app-phone {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    min-width: 250px;
 }
 
-.footer-col h3 {
-    font-family: var(--font-heading);
-    font-size: 2.2rem; /* Título principal mucho más grande (era 1.5rem) */
-    margin-bottom: 25px;
-    letter-spacing: 2px;
+.phone-img {
+    max-width: 260px;
+    height: auto;
+    
+    /* 1. Borramos el border-radius porque el PNG ya tiene su propia forma */
+    /* 2. Borramos el box-shadow antiguo */
+    
+    /* 3. AGREGAMOS EL DROP-SHADOW: Esta sombra detecta la transparencia y se pega al borde del celular */
+    filter: drop-shadow(0 25px 30px rgba(0, 0, 0, 0.4)); 
+    
+    transform: rotate(-5deg);
+    transition: transform 0.4s ease, filter 0.4s ease;
 }
 
-.footer-col h4 {
-    color: var(--primary-yellow);
+.phone-img:hover {
+    transform: rotate(0deg) scale(1.05); 
+    /* La sombra se hace un poco más grande y oscura al hacer hover */
+    filter: drop-shadow(0 35px 45px rgba(0, 0, 0, 0.6));
+}
+
+/* Imagen de "Pedir opciones" */
+.app-options {
+    flex: 1.5;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 300px;
+}
+.app-text-content {
+    max-width: 800px; /* Ahora el texto tiene mucho más espacio para expandirse */
+    text-align: left; /* Obliga a que todo se pegue a la izquierda */
+    width: 100%;
+}
+.app-subtitle {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.app-title {
     font-family: var(--font-heading);
-    font-size: 1.2rem; /* Subtítulos más grandes (era 1rem) */
-    margin-bottom: 25px;
+    font-size: 3.8rem;
+    font-weight: 800;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+.app-desc {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    color: #e0e0e0;
+}
+/* NUEVO: Agrupa íconos y botón en un bloque */
+.action-group {
+    display: inline-flex; /* Hace que el contenedor se ajuste al tamaño de los iconos */
+    flex-direction: column; /* Apila los iconos arriba y el botón abajo */
+    align-items: center; /* Centra el botón perfectamente debajo de los iconos */
+}
+
+/* Contenedor de Iconos */
+.order-methods {
+    display: flex;
+    justify-content: center; 
+    gap: 70px; /* Separación ideal para que se vea amplio como la foto 1 */
+    margin-bottom: 25px; /* Espacio hacia abajo, antes del botón */
+}
+
+.method {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Separación entre el icono de la moto y la palabra "Delivery" */
+    transition: transform 0.3s ease, color 0.3s;
+    cursor: pointer;
+}
+
+.method:hover {
+    transform: translateY(-5px); 
+    color: var(--primary-yellow); /* Se pintan de amarillo al pasar el mouse */
+}
+
+.method-icon {
+    width: 75px; 
+    height: 75px;
+    object-fit: contain; 
+    transition: transform 0.3s ease;
+}
+
+.method span {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff; /* Aseguramos que el texto sea blanco por defecto */
+}
+
+/* Botón de Comenzar Pedido */
+.btn-comenzar {
+    display: inline-block;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    background: transparent;
+    padding: 12px 45px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: background 0.3s, color 0.3s, transform 0.3s;
+}
+
+.btn-comenzar:hover {
+    background: #ffffff;
+    color: #0A4342; /* Letra verde oscuro para que contraste */
+    transform: scale(1.05);
+}
+
+/* Responsividad extra para esta sección */
+@media (max-width: 1024px) {
+    .app-title { font-size: 2.8rem; }
+    .app-text-content { 
+        text-align: center; 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+    }
+    .order-methods { gap: 30px; }
+}
+
+.options-img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- FOOTER PRINCIPAL (COLUMNAS) --- */
+.main-footer {
+    padding: 60px 5% 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-grid-pro {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.2fr 1.5fr; /* Proporciones para que ZGOURMET tenga más espacio */
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+/* Títulos Naranjas */
+.text-orange {
+    color: #df6a38; /* Naranja del diseño */
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    margin-bottom: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
-.footer-col p {
-    color: #a0a0a0;
-    font-size: 1.1rem; /* Texto general más grande (era 0.9rem) */
-    line-height: 1.8; /* Mayor interlineado para lectura más cómoda */
+/* Columna 1: Marca */
+.footer-brand h3 {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.footer-brand p {
+    font-size: 1.1rem;
+    color: #e0e0e0;
     margin-bottom: 20px;
+    line-height: 1.4;
 }
 
-.social-link {
-    color: var(--primary-yellow);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1.1rem; /* Enlaces más grandes */
+.social-icons {
     display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-    transition: transform 0.3s, color 0.3s;
-}
-
-/* Efecto hover: los links se mueven un poco a la derecha al pasar el mouse */
-.social-link:hover {
-    transform: translateX(8px);
-    color: #ffffff;
-}
-
-.footer-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1300px;
-    margin: 30px auto 0;
-    font-size: 0.95rem; /* Textos inferiores más grandes (era 0.75rem) */
-    color: #888;
-    flex-wrap: wrap;
     gap: 15px;
+    
 }
 
-.text-yellow { color: var(--primary-yellow); }
+.social-icons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    color: #ffffff;
+    transition: background 0.3s, color 0.3s;
+}
+
+.social-icons svg {
+    width: 20px;
+    height: 20px;
+}
+
+.social-icons a:hover {
+    background-color: #df6a38;
+    border-color: #df6a38;
+}
+
+/* Columna 2 y 3: Enlaces y Dirección */
+.footer-links ul {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #df6a38;
+}
+
+.address-text {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.link-orange {
+    color: #df6a38;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: transform 0.3s;
+    display: inline-block;
+}
+
+.link-orange:hover {
+    transform: translateX(5px);
+}
+
+/* Columna 4: Contacto y Botón */
+.footer-contact p {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.btn-outline {
+    display: inline-block;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    margin-top: 20px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.btn-outline:hover {
+    background: #ffffff;
+    color: #0b3830; /* Letra verde al hacer hover */
+}
+
+/* Copyright Final */
+.footer-copyright {
+    color: #889996;
+    font-size: 0.9rem;
+    text-align: left; /* Alineado a la izquierda como en el diseño */
+}
+
+/* RESPONSIVE: Adaptación para Tablets y Celulares */
+@media (max-width: 1024px) {
+    .footer-grid-pro {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 50px;
+    }
+    .app-phone { justify-content: center; }
+    .app-options { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+    .footer-wrapper {
+        border-radius: 40px 40px 0 0 / 40px 40px 0 0; /* Curva más suave en móvil */
+    }
+    .footer-grid-pro {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+    .social-icons {
+        justify-content: center;
+    }
+    .footer-copyright {
+        text-align: center;
+    }
+}
 
 /* --- ANIMACIÓN FADE UP GENERAL --- */
 .fade-up {
@@ -815,4 +1085,155 @@ footer {
 
 .img-btn:hover img {
     transform: scale(1.08); /* La imagen hace un pequeño zoom interior */
+}
+/* --- ICONOS DE REDES SOCIALES (IMÁGENES) --- */
+.social-icons {
+    display: flex;
+    gap: 20px; /* Separación entre cada logo */
+    margin-top: 15px;
+}
+
+.social-icons a {
+    display: inline-block;
+    transition: transform 0.3s ease; /* Prepara el salto del hover */
+}
+
+.social-icons a img {
+    width: 30px; /* Controla el tamaño de tus logos aquí. Súbelo o bájalo si hace falta */
+    height: auto;
+    object-fit: contain;
+    transition: filter 0.3s ease;
+    margin-top: 5px;
+    margin-left: 6px;
+}
+
+/* Efecto al pasar el mouse por encima */
+.social-icons a:hover {
+    transform: translateY(-5px); /* El logo salta un poco hacia arriba */
+    
+    /* Le agregamos una sombra cálida/naranja que combina con tu diseño */
+    filter: drop-shadow(0 5px 10px rgba(223, 106, 56, 0.4)); 
+}
+/* =========================================
+   NUEVA SECCIÓN: TRES EXPERIENCIAS (MAPA)
+   ========================================= */
+.experiencia-section {
+    background-color: #ffffff; /* Fondo blanco limpio */
+    padding: 100px 5%;
+}
+
+.experiencia-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1300px; /* Ancho amplio para que respire el diseño */
+    margin: 0 auto;
+    gap: 60px; /* Separación entre el texto y el mapa */
+}
+
+/* --- Columna Izquierda (Texto) --- */
+.experiencia-content {
+    flex: 1;
+    max-width: 550px;
+}
+
+.experiencia-title {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #0A4342; /* El verde oscuro corporativo */
+    line-height: 1.1;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.experiencia-desc {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    color: #4a4a4a;
+    line-height: 1.5;
+    margin-bottom: 40px;
+}
+
+/* Logos de las marcas */
+.experiencia-logos {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.experiencia-logos img {
+    height: 150px; /* Ajusta este tamaño según tus imágenes */
+    width: auto;
+    object-fit: contain;
+}
+
+/* Botón "Conoce Zgourmet" */
+.btn-outline-dark {
+    display: inline-block;
+    border: 2px solid #0A4342; /* Borde verde oscuro */
+    color: #0A4342;
+    background: transparent;
+    padding: 12px 35px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 125px;
+    transition: background 0.3s, color 0.3s, transform 0.3s;
+}
+
+.btn-outline-dark:hover {
+    background: #0A4342;
+    color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* --- Columna Derecha (Mapa) --- */
+.experiencia-map {
+    flex: 1.2; /* Toma un poco más de espacio que el texto */
+    height: 500px;
+    border-radius: 40px; /* Esquinas súper redondeadas idénticas al diseño */
+    overflow: hidden; /* Corta el iframe para que respete las curvas */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1); /* Sombra elegante */
+}
+
+.experiencia-map iframe,
+.experiencia-map img {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover; /* Por si decides usar una imagen en vez del iframe */
+}
+
+/* --- Responsive (Tablets y Móviles) --- */
+@media (max-width: 1024px) {
+    .experiencia-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .experiencia-content {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .experiencia-logos {
+        justify-content: center;
+    }
+    .experiencia-map {
+        width: 100%;
+        height: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    .experiencia-title {
+        font-size: 2.5rem; /* Letra más pequeña en celular */
+    }
+    .experiencia-logos {
+        flex-wrap: wrap; /* Permite que los logos bajen de línea si no caben */
+    }
 }

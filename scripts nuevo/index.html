@@ -178,58 +178,147 @@
         </div>
     </section>
 
-    <section id="ubicacion">
-        <h2 class="section-title fade-up">DÓNDE ESTAMOS</h2>
-        <p class="ubicacion-subtitle">Visítanos en el corazón de Macaracuay. Contamos con estacionamiento, seguridad y el mejor ambiente para compartir.</p>
-        
-        <div class="ubicacion-card fade-up">
-            <iframe class="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15693.308709324838!2d-66.8122421!3d10.4749339!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8c2a59a7f339b6e3%3A0xf6031f0eb6297314!2sMacaracuay%2C%20Caracas%201071%2C%20Miranda!5e0!3m2!1ses!2sve!4v1717000000000!5m2!1ses!2sve" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <!-- =========================================
+         SECCIÓN: TRES EXPERIENCIAS (UBICACIÓN)
+         ========================================= -->
+    <section id="ubicacion" class="experiencia-section">
+        <div class="experiencia-container fade-up">
             
-            <div class="info-ubicacion">
-                <h3>ZGOURMET</h3>
-                <div class="info-item">
-                    <h4>DIRECCIÓN</h4>
-                    <p>Macaracuay, Municipio Sucre.<br>Caracas, Estado Miranda, Venezuela.</p>
+            <!-- Columna Izquierda: Textos y Logos -->
+            <div class="experiencia-content">
+                <h2 class="experiencia-title">Tres experiencias,<br>un mismo lugar</h2>
+                <!-- Nota: Corregí el error ortográfico "saborees" del diseño por "sabores" -->
+                <p class="experiencia-desc">En Zgourmet reunimos sabores distintos para que siempre encuentres algo que disfrutar.</p>
+                
+                <!-- Contenedor de Logos (Usa las versiones oscuras/monocromáticas si las tienes) -->
+                <div class="experiencia-logos">
+                    <!-- Sustituye por el nombre real de tus imágenes de los logos -->
+                    <img src="assets/img/Logo-Moai-Verde.png" alt="Moai">
+                    <img src="assets/img/Logo-Cuore-Verde.png" alt="Cuore">
+                    <img src="assets/img/Logo-Top brasa-Verde.png" alt="Top Brasa">
                 </div>
-                <div class="info-item">
-                    <h4>HORARIO DE ATENCIÓN</h4>
-                    <p><strong>Lunes a Domingo:</strong><br>12:00 PM - 1:00 AM</p>
-                </div>
-                <a href="#" class="btn-llegar">CÓMO LLEGAR</a>
+                
+                <!-- Botón -->
+                <a href="#propuestas" class="btn-outline-dark">Conoce Zgourmet</a>
             </div>
+            
+            <!-- Columna Derecha: Mapa -->
+            <!-- Columna Derecha: Mapa -->
+            <div class="experiencia-map">
+                <!-- Solo debes poner el nombre exacto de tu imagen del mapa aquí -->
+                <img src="assets/img/Ubicación.png" alt="Mapa Macaracuay ZGourmet">
+            </div>
+            
         </div>
     </section>
 
-    <footer id="contacto">
-        <div class="footer-grid">
-            <div class="footer-col">
-                <h3>ZGOURMET</h3>
-                <p>La mejor variedad gastronómica y ambiente en Macaracuay, diseñados para brindarte experiencias memorables.</p>
-                <a href="#" class="social-link">📷 @ZGOURMETCCS</a>
-            </div>
-            <div class="footer-col">
-                <h4>SERVICIOS</h4>
-                <p style="margin-bottom: 5px; color: #fff;">DELIVERY & PICK UP</p>
-                <!-- Subimos el número de teléfono a 1.4rem -->
-                <p class="text-yellow" style="font-size: 1.4rem; font-weight: 600;">📞 0412-3215504</p>
+    <!-- ==============================================
+         NUEVA SECCIÓN: PRE-FOOTER (APP) Y FOOTER
+         ============================================== -->
+    <div class="footer-wrapper" id="contacto">
+        
+        <!-- PRE-FOOTER (Llamado a la acción de la App) -->
+        <section class="pre-footer-app">
+            <div class="app-container">
+                <div class="app-phone">
+                    <!-- Imagen del celular -->
+                    <img src="assets/img/Vista_Móvil_01.png" alt="App ZGourmet" class="phone-img">
+                </div>
+                <div class="app-options">
+                    <div class="app-text-content">
+                        <span class="app-subtitle">Fácil y Rápido</span>
+                        <h2 class="app-title">Pide como prefieras</h2>
+                        <p class="app-desc">Elige la opción que mejor se adapte a tu momento</p>
+                        
+                        <!-- CONTENEDOR NUEVO: Agrupa íconos y botón para centrarlos juntos -->
+                        <div class="action-group">
+                            <div class="order-methods">
+                                <!-- Delivery -->
+                                <div class="method">
+                                    <img src="assets/img/Delivery_Icon-01.png" alt="Delivery" class="method-icon">
+                                    <span>Delivery</span>
+                                </div>
+                                
+                                <!-- Pick-Up -->
+                                <div class="method">
+                                    <img src="assets/img/Pick_Up-Icon-02.png" alt="Pick-Up" class="method-icon">
+                                    <span>Pick-Up</span>
+                                </div>
+                                
+                                <!-- Reserva -->
+                                <div class="method">
+                                    <img src="assets/img/Reserva_Icon-03.png" alt="Reserva" class="method-icon">
+                                    <span>Reserva</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Botón centrado exactamente debajo de los íconos -->
+                            <a href="#propuestas" class="btn-comenzar">Comenzar pedido</a>
+                        </div>
+                        
+                    </div>
+                </div>
+        </section>
+
+        <!-- FOOTER PRINCIPAL (4 Columnas) -->
+        <footer class="main-footer">
+            <div class="footer-grid-pro">
                 
-                <p style="margin-bottom: 5px; margin-top: 25px; color: #fff;">RESERVACIONES</p>
-                <p class="text-yellow" style="font-size: 1.1rem;">✉ reservas@zgourmet.com</p>
-                <!-- Subimos la nota pequeña a 0.95rem -->
-                <p style="font-size: 0.95rem; font-style: italic;">O contáctanos vía Mensaje Directo.</p>
+                <!-- Columna 1: ZGOURMET -->
+                <div class="footer-brand">
+                    <h3>ZGOURMET</h3>
+                    <p>Tres experiencias en,<br>un mismo lugar</p>
+                    <div class="social-icons">
+                        <!-- Icono Instagram -->
+                        <a href="#">
+                            <img src="assets/img/Footer_instagram (1).png" alt="Instagram ZGourmet">
+                        </a>
+                        
+                        <!-- Icono TikTok -->
+                        <a href="#">
+                            <img src="assets/img/Footer_tik-tok.png" alt="TikTok ZGourmet">
+                        </a>
+                        
+                        <!-- Icono WhatsApp -->
+                        <a href="#">
+                            <img src="assets/img/Footer_whatsapp.png" alt="WhatsApp ZGourmet">
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna 2: EXPLORA -->
+                <div class="footer-links">
+                    <h4 class="text-orange">EXPLORA</h4>
+                    <ul>
+                        <li><a href="#inicio">inicio</a></li>
+                        <li><a href="#propuestas">Restaurantes</a></li>
+                        <li><a href="#eventos">Promociones</a></li>
+                        <li><a href="#">Nosotros</a></li>
+                    </ul>
+                </div>
+
+                <!-- Columna 3: VISÍTANOS -->
+                <div class="footer-links">
+                    <h4 class="text-orange">VISÍTANOS</h4>
+                    <p class="address-text">Av. Luis de Camoens<br>Macaracuay, Caracas</p>
+                    <a href="#ubicacion" class="link-orange">Cómo llegar &rarr;</a>
+                </div>
+
+                <!-- Columna 4: CONTÁCTANOS -->
+                <div class="footer-contact">
+                    <h4 class="text-orange">CONTÁCTANOS</h4>
+                    <p>+58 412-3215504</p>
+                    <p>ZGourmet@gmail.com</p>
+                    <a href="#" class="btn-outline">Ordenar Ahora</a>
+                </div>
+
             </div>
-            <div class="footer-col">
-                <h4>NUESTRAS MARCAS</h4>
-                <a href="#" class="social-link">🍝 @CUORE_OFICIAL</a>
-                <a href="#" class="social-link">🥩 @TOPBRASAS_OFICIAL</a>
-                <a href="#" class="social-link">🍣 @MOAI_OFICIAL</a>
+            
+            <div class="footer-copyright">
+                <p>&copy; 2026 Zgourmet. Todos los derechos reservados</p>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <div>📍 MACARACUAY, CARACAS, MIRANDA, VENEZUELA.</div>
-            <div>© 2026 ZGOURMET. TODOS LOS DERECHOS RESERVADOS.</div>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <!-- Archivo JavaScript -->
     <script src="js/main.js"></script>
